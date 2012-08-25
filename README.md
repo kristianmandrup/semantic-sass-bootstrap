@@ -22,47 +22,32 @@ This semantic approach lets the resulting HTML be more content oriented, with th
     bye
 ```
 
-This project will initially be focused on providing SCSS support, but possibly SASS (and perhaps even LESS) in the future. I welcome other developers to assist in this effort or branch off and create LESS or SASS variants and discuss best approaches, naming conventions etc.
+This project will initially be focused on providing SCSS support, but possibly SASS (and perhaps even LESS) in the future. I welcome other developers to assist in this effort or branch off and create LESS or SASS variants, discuss approaches, naming conventions etc.
 
 This project will initially target use in Rails, but the assets in `vendor/assets/stylesheets` can also be extracted and used in non-Rails projects ;)
 
 Here are some usage examples that I imagine could be possible with this solution... 
 
-I also like an `asColumn`, `asBtn` etc. naming convention. Suggestions are welcome!
-
-PS: The syntax might have errors, since I am still a newbie with these techs.
 
 ## With LESS
 
 ```less
 #search {
   button {
-    .makeBtn('small');
+    .btsBtn('small');
   }
 }
-#topbar { .makeRow(); }
+#topbar { .btsRow(); }
 #main_wrapper { 
-  .makeRow();
+  .btsRow();
 
-  #menubar{ .makeColumn(3);}
-  #content{ .makeColumn(6);}
-  #sidebar{ .makeColumn(3);}
+  #menubar{ .btsColumn(3);}
+  #content{ .btsColumn(6);}
+  #sidebar{ .btsColumn(3);}
 }  
 ```
 
 ## With SCSS
-
-The ugly way, by simply using `@extend`
-
-```scss
-#search {
-  button {
-    @extend .btn.btn-primary
-  }
-}
-```
-
-The better way:
 
 ```scss
 #search {
@@ -70,9 +55,7 @@ The better way:
     @include btsBtn($size: 'small', $type: 'primary');
   }
 }
-```
 
-```scss
 #topbar { @include makeRow(); }
 #main_wrapper { 
   @include makeRow();
@@ -88,23 +71,31 @@ The better way:
 ```sass
 #search
   button
-    +makeBtn('small')
+    +btsBtn('small')
   
 #topbar 
-  +makeRow
+  +btsRow
 
 #main_wrapper
-  +makeRow
+  +btsRow
 
   #menubar
-    +makeColumn(3)
+    +btsColumn(3)
   #content
-    +makeColumn(6)
+    +btsColumn(6)
   #sidebar
-    +makeColumn(3)
+    +btsColumn(3)
 ```
 
 ## Mixins
+
+Mixins have been defined for the following Bootstrap modules:
+
+* Buttons
+* Button group
+* Grid (partly)
+
+_Please help out by adding mixins for other Bootstrap modules that you would like to use in a more semantic fashion ;)_
 
 *Buttons*
 
@@ -124,14 +115,33 @@ The better way:
 * `btsColumn($columns: 1, $offset: 0)`
 * `btsRow()`
 
-More to follow... Please help out!
+_More to follow... Please help out!_
+
+## Install
+
+Not yet released as a gem, so get it directly from this github repo!
+
+In `Gemfile`:
+
+```ruby
+gem 'semantic-sass-bootstrap', git: 'git://github.com/kristianmandrup/semantic-sass-bootstrap.git'
+```
+
+Bundle!
+
+`$ bundle`
+
+Then add `semantic_bootstrap` to your `application.css` manifest file.
+
+Using Compass:
+
+`@import 'semantic_bootstrap';`
 
 ## Usage
 
-Examples to follow here...
+A simple SCSS example illustrating use of buttons and buttonGroup mixins.
 
 ```scss
-
 $action-size: 'large';
 
 #search {
@@ -151,29 +161,12 @@ $action-size: 'large';
     }
   }
 }
-
-#topbar { 
-  @include btsRow(); 
-}
-
-#main_wrapper { 
-  @include makeRow();
-
-  #menubar{ 
-    @include btsColumn(3);
-  }
-  #content{ 
-    @include btsColumn(6);
-  }
-  #sidebar{ 
-    @include btsColumn(3);
-  }
-}  
 ```
 
 ## TODO
 
 Needs usage/experimentation in real life apps :P
+Add mixins for addidtional _Twitter Bootstrap_ modules where it makes sense!
 
 ## Contributing to semantic-sass-bootstrap
  
