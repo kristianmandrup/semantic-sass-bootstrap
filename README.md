@@ -102,7 +102,11 @@ _Please help out by adding mixins for other Bootstrap modules that you would lik
 
 *Accordion*
 
-See code
+* `btsAccordion()`
+* `btsAccordion-group()`
+* `btsAccordion-heading($toggle: false)`
+* `btsAccordion-toggle()`
+* `btsAccordion-inner()`
 
 *Buttons*
 
@@ -119,7 +123,18 @@ See code
 
 *Dropdowns*
 
-See code
+* btsDropup()
+* btsDropdown()
+* btsDropdown-toggle($active: false, $state: 'default')
+* btsCaret()
+* btsDropdown-caret($state: 'default')
+* btsDropdown-menu($pull-right: false, $divider: false)
+* btsDropdown-menuDivider()
+* btsDropdown-menuItem($active: false)
+* btsDropdown-open($nested: false)
+* btsDropup-menu()
+* btsDropup-menuCaret()
+* btsTypeahead()
 
 *Grid*
 
