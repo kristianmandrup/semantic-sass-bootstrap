@@ -91,11 +91,18 @@ Here are some usage examples that I imagine could be possible with this solution
 
 Mixins have been defined for the following Bootstrap modules:
 
+* Accordion
 * Buttons
 * Button group
-* Grid (partly)
+* Dropdowns
+* Grid (_partly_)
+* Navbar (_partly_)
 
 _Please help out by adding mixins for other Bootstrap modules that you would like to use in a more semantic fashion ;)_
+
+*Accordion*
+
+See code
 
 *Buttons*
 
@@ -110,10 +117,18 @@ _Please help out by adding mixins for other Bootstrap modules that you would lik
 * `btsBtn-groupToggleBtn($type: 'default')
 * `btsBtn-caret($size: 'default', $hover: false)
 
+*Dropdowns*
+
+See code
+
 *Grid*
 
 * `btsColumn($columns: 1, $offset: 0)`
 * `btsRow()`
+
+*Navbar*
+
+See code
 
 _More to follow... Please help out!_
 
