@@ -1,0 +1,134 @@
+// Use the .menu class on any <li> element within the topbar or ul.tabs and you'll get some superfancy dropdowns
+@mixin btsDropup() {
+  position: relative;
+}
+
+@mixin btsDropdown {
+  @include btsDropup();
+}
+
+@mixin btsDropdown-toggle($active: false, $state: 'default') {
+  // The caret makes the toggle a bit too tall in IE7
+  *margin-bottom: -3px;
+
+  @if $active or $state = 'open' {
+    outline: 0;
+  }
+}
+
+// Dropdown arrow/caret
+// --------------------
+@mixin btsCaret() {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top:   4px solid $black;
+  border-right: 4px solid transparent;
+  border-left:  4px solid transparent;
+  content: "";
+  @include opacity(0.3);
+}
+
+@mixin btsDropdown-caret($state: 'default') {
+// Place the caret
+  margin-top: 8px;
+  margin-left: 2px;
+
+  @if $state == 'hover' or $state == 'open' {
+    @include opacity(1);
+  }
+}
+
+// The dropdown menu (ul)
+// ----------------------
+@mixin btsDropdown-menu($pull-right: false, $divider: false) {
+  position: absolute;
+  top: 100%;
+  z-index: $zindexDropdown;
+  display: none; // none by default, but block on "open" of the menu
+  float: left;
+  min-width: 160px;
+  padding: 4px 0;
+  margin: 1px 0 0; // override default ul
+  list-style: none;
+  background-color: $dropdownBackground;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  @include border-radius(5px);
+  @include box-shadow(0 5px 10px rgba(0,0,0,.2));
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+
+  // Aligns the dropdown menu to right
+  @if $pull-right {
+    right: 0;
+    left: auto;    
+  } @else {
+    left: 0;
+  }
+}
+
+// Dividers (basically an hr) within the dropdown
+@mixin btsDropdown-menuDivider() {
+  @include nav-divider($dropdownDividerTop, $dropdownDividerBottom);
+}
+
+// Links within the dropdown menu
+@mixin btsDropdown-menuItem($active: false) {
+  display: block;
+  padding: 3px 15px;
+  clear: both;
+  font-weight: normal;
+  line-height: $baseLineHeight;
+  color: $dropdownLinkColor;
+  white-space: nowrap;
+
+  // Hover state or active
+  @if $active {
+    color: $dropdownLinkColorHover;
+    text-decoration: none;
+    background-color: $dropdownLinkBackgroundHover;
+  }
+}
+
+// Open state for the dropdown
+@mixin btsDropdown-open($nested: false) {
+  @if $nested {
+    display: block;
+  } @else {
+    // IE7's z-index only goes to the nearest positioned ancestor, which would
+    // make the menu appear below buttons that appeared later on the page
+    *z-index: $zindexDropdown;  
+  }
+}
+
+// Allow for dropdowns to go bottom up (aka, dropup-menu)
+// ------------------------------------------------------
+// Just add .dropup after the standard .dropdown class and you're set, bro.
+// TODO: abstract this so that the navbar fixed styles are not placed here?
+
+// Different positioning for bottom up menu
+@mixin btsDropup-menu() {  
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+
+// Reverse the caret
+@mixin btsDropup-menuCaret() {  
+  border-top: 0;
+  border-bottom: 4px solid $black;
+  content: "\2191";
+}
+
+
+// Typeahead
+// ---------
+@mixin btsTypeahead() {
+  margin-top: 2px; // give it some space to breathe
+  @include border-radius(4px);
+}
