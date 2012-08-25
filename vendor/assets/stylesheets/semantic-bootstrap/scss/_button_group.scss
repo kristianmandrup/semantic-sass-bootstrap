@@ -75,8 +75,78 @@
   } 
 }
 
-@mixin btsBtn-groupToggle($active: false, $open: false) {
-  @if $active and $open {
+@mixin btsBtn-groupToggle($size: 'default', $active: false, $open: false) {
+  // Give the line between buttons some depth
+  padding-left: 8px;
+  padding-right: 8px;
+  @include box-shadow(#{inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)});
+  *padding-top: 4px;
+  *padding-bottom: 4px;
+
+  @if $active or $open {
     outline: 0;
-  }  
+  } @else if $size == 'mini' {
+    padding-left: 5px;
+    padding-right: 5px;
+  } @else if $size == 'small' {
+    *padding-top: 4px;
+    *padding-bottom: 4px;
+  } @else if $size == 'large' {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  // The clickable button for toggling the menu
+  // Remove the gradient and set the same inset shadow as the :active state
+  @if $state == 'open' {
+    background-image: none;
+    @include box-shadow(#{inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)});  
+  }
+}
+
+// Note: Use only for open Group
+@mixin btsBtn-groupToggleBtn($type: 'default') {
+  background-color: $btnBackgroundHighlight;
+
+  @if $type == 'primary' {
+    background-color: $btnPrimaryBackgroundHighlight;
+  } @else if $type == 'warning' {
+    background-color: $btnWarningBackgroundHighlight;
+  } @else if $type == 'danger' {
+    background-color: $btnDangerBackgroundHighlight;
+  } @else if $type == 'success' {
+    background-color: $btnSuccessBackgroundHighlight;
+  } @else if $type == 'info' {
+    background-color: $btnInfoBackgroundHighlight;
+  } @else if $type == 'inverse' {
+    background-color: $btnInverseBackgroundHighlight;
+  }
+}
+
+@mixin btsBtn-caret($size: 'default', $hover: false) {
+  // Reposition the caret
+  margin-top: 7px;
+  margin-left: 0;
+
+  @if $active {
+    @include opacity(1);    
+  } 
+
+  // Carets in other button sizes
+  @if $size == 'mini' {
+    margin-top: 5px;    
+  } @else if $size == 'small' {
+    margin-top: 6px;    
+  } @else if $size == 'large' {
+    margin-top: 6px;
+    border-left-width:  5px;
+    border-right-width: 5px;
+    border-top-width:   5px;
+
+    // Upside down carets for .dropup
+    @if $dropup {
+      border-bottom: 5px solid $black;
+      border-top: 0;      
+    }
+  }
 }

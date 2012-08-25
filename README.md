@@ -67,7 +67,7 @@ The better way:
 ```scss
 #search {
   button {
-    @include btsBtn($size: 'small');
+    @include btsBtn($size: 'small', $type: 'primary');
   }
 }
 ```
@@ -108,21 +108,72 @@ The better way:
 
 *Buttons*
 
-* `btsBtn($type: 'default', $size: 'default', $icon: false, $primary: false, $state: 'default')`
+* `btsBtn($type: 'default', $size: 'default', $icon: false, $state: 'default', $hover: false)`
 
 *Button group*
 
 * `btsBtn-group($nested: false)`
 * `btsBtn-toolbar()`
 * `btsBtn-groupBtn($pos: 'default')`
-* `btsBtn-groupToggle(active: true, $open: true)`
+* `btsBtn-groupToggle($size: 'default', $active: false, $open: false)`
+* `btsBtn-groupToggleBtn($type: 'default')
+* `btsBtn-caret($size: 'default', $hover: false)
 
 *Grid*
 
 * `btsColumn($columns: 1, $offset: 0)`
 * `btsRow()`
 
-More to follow... Needs usage experimentation in real life apps :P
+More to follow... Please help out!
+
+## Usage
+
+Examples to follow here...
+
+```scss
+
+$action-size: 'large';
+
+#search {
+  button {
+    @include btsBtn($size: 'small');
+
+    &:hover {
+      @include btsBtn($hover: true);      
+    }
+  }
+
+  .actions {
+    @include btsBtn-group($size: $action-size);
+
+    + .actions {
+      @include btsBtn-group($size: $action-size, $nested: true);      
+    }
+  }
+}
+
+#topbar { 
+  @include btsRow(); 
+}
+
+#main_wrapper { 
+  @include makeRow();
+
+  #menubar{ 
+    @include btsColumn(3);
+  }
+  #content{ 
+    @include btsColumn(6);
+  }
+  #sidebar{ 
+    @include btsColumn(3);
+  }
+}  
+```
+
+## TODO
+
+Needs usage/experimentation in real life apps :P
 
 ## Contributing to semantic-sass-bootstrap
  
@@ -134,7 +185,7 @@ More to follow... Needs usage experimentation in real life apps :P
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2012 Kristian Mandrup. See LICENSE.txt for
 further details.

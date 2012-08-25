@@ -1,5 +1,5 @@
 // Core
-@mixin btsBtn($type: 'default', $size: 'default', $icon: false, $primary: false, $state: 'default') {
+@mixin btsBtn($type: 'default', $size: 'default', $icon: false, $state: 'default', $hover: false) {
   display: inline-block;
   @include ie7-inline-block();
   padding: 4px 10px 4px;
@@ -22,27 +22,23 @@
 
   @if state == 'active' {
     $active: true;
-    
+
     background-color: darken($white, 10%);
     background-color: darken($white, 15%) \9;
     background-image: none;
     outline: 0;
     @include box-shadow(#{inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)});    
-  }
-
-  @if state == 'focus' {
+  } @else if state == 'focus' {
     @include tab-focus();    
-  }
-
-  @if state == 'disabled' {
+  } @else if state == 'disabled' {
     cursor: default;
     background-color: darken($white, 10%);
     background-image: none;
     @include opacity(0.65);
     @include box-shadow(none);
-  }
+  } 
 
-  @if primary {
+  @if $type =='primary' {
     color: $white;
     text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 
@@ -51,26 +47,19 @@
     }
 
     @include buttonBackground($btnPrimaryBackground, $btnPrimaryBackgroundHighlight);    
-  }
-
-  // Warning appears are orange
-  @if $type == 'warning' {
+  } @else if $type == 'warning' {
+    // Warning appears are orange
     @include buttonBackground($btnWarningBackground, $btnWarningBackgroundHighlight);
-  }
-  // Danger and error appear as red
-  @if $type == 'danger' {
+  } @else if $type == 'danger' {
+    // Danger and error appear as red
     @include buttonBackground($btnDangerBackground, $btnDangerBackgroundHighlight);
-  }
-  // Success appears as green
-  @if $type == 'success' {
+  } @else if $type == 'success' {
+    // Success appears as green
     @include buttonBackground($btnSuccessBackground, $btnSuccessBackgroundHighlight);
-  }
-  // Info appears as a neutral blue
-  @if $type == 'info' {
+  } @else if $type == 'info' {    
     @include buttonBackground($btnInfoBackground, $btnInfoBackgroundHighlight);
-  }
-
-  @if $type == 'inverse' {
+  } @else if $type == 'inverse' {
+    // Info appears as a neutral blue
     @include buttonBackground($btnInverseBackground, $btnInverseBackgroundHighlight);
   }  
 
@@ -84,8 +73,7 @@
       margin-top: 1px;
     }
 
-  }
-  @if $size = 'small' {
+  } @else if $size = 'small' {
     padding: 5px 9px;
     font-size: $baseFontSize - 2px;
     line-height: $baseLineHeight - 2px;
@@ -94,8 +82,7 @@
       margin-top: -1px;
     }  
 
-  }
-  @if $size = 'mini' {
+  } @else if $size = 'mini' {
     padding: 2px 6px;
     font-size: $baseFontSize - 2px;
     line-height: $baseLineHeight - 4px;
@@ -103,17 +90,17 @@
 
   border-color: #ccc;
   border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);  
+
+  @if $hover {
+    color: $grayDark;
+    text-decoration: none;
+    background-color: darken($white, 10%);
+    *background-color: darken($white, 15%); // Buttons in IE7 don't get borders, so darken on hover
+    background-position: 0 -15px;
+
+    // transition is only when going to hover, otherwise the background
+    // behind the gradient (there for IE<=9 fallback) gets mismatched
+    @include transition(background-position .1s linear);    
+  }
 }
 
-// Hover state
-@mixin btsBtn-hover() {
-  color: $grayDark;
-  text-decoration: none;
-  background-color: darken($white, 10%);
-  *background-color: darken($white, 15%); // Buttons in IE7 don't get borders, so darken on hover
-  background-position: 0 -15px;
-
-  // transition is only when going to hover, otherwise the background
-  // behind the gradient (there for IE<=9 fallback) gets mismatched
-  @include transition(background-position .1s linear);
-}
