@@ -1,0 +1,7 @@
+@mixin btsColumn($columns: 1, $offset: 0) {
+  @include makeColumn($columns: 1, $offset: 0);
+}
+
+@mixin btsRow() {
+  @include makeRow();
+}

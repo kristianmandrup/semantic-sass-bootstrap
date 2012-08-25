@@ -52,12 +52,27 @@ PS: The syntax might have errors, since I am still a newbie with these techs.
 
 ## With SCSS
 
+The ugly way, by simply using `@extend`
+
 ```scss
 #search {
   button {
-    @include makeBtn('small');
+    @extend .btn.btn-primary
   }
 }
+```
+
+The better way:
+
+```scss
+#search {
+  button {
+    @include btsBtn($size: 'small');
+  }
+}
+```
+
+```scss
 #topbar { @include makeRow(); }
 #main_wrapper { 
   @include makeRow();
@@ -88,6 +103,26 @@ PS: The syntax might have errors, since I am still a newbie with these techs.
   #sidebar
     +makeColumn(3)
 ```
+
+## Mixins
+
+*Buttons*
+
+* `btsBtn($type: 'default', $size: 'default', $icon: false, $primary: false, $state: 'default')`
+
+*Button group*
+
+* `btsBtn-group($nested: false)`
+* `btsBtn-toolbar()`
+* `btsBtn-groupBtn($pos: 'default')`
+* `btsBtn-groupToggle(active: true, $open: true)`
+
+*Grid*
+
+* `btsColumn($columns: 1, $offset: 0)`
+* `btsRow()`
+
+More to follow... Needs usage experimentation in real life apps :P
 
 ## Contributing to semantic-sass-bootstrap
  
