@@ -70,7 +70,8 @@
     }
   }
 
-  @if $state.in('hover', 'focus', 'active') {
+  // Wish there was an 'in' function for list to check if list contains specific element
+  @if $state == 'hover' or $state == 'focus' or $state == 'active' {
     z-index: 2;    
   } 
 }
