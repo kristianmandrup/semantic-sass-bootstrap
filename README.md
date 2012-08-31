@@ -92,6 +92,7 @@ Here are some usage examples that I imagine could be possible with this solution
 Mixins have been defined for the following Bootstrap modules:
 
 * Accordion
+* Breadcrumb
 * Buttons
 * Button group
 * Dropdowns
