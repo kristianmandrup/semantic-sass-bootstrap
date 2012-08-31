@@ -1,0 +1,30 @@
+@mixin btsRow-core() {
+    margin-left: $gutterWidth * -1;
+    @include clearfix();
+  }
+}
+
+@mixin btsRow-fluid() {
+    width: 100%;
+    @include clearfix();
+    [class*="span"] {
+      @include input-block-level();
+      float: left;
+      margin-left: $gutterWidth;
+      *margin-left: $gutterWidth - (.5 / $gridRowWidth * 100px * 1%);
+    }
+    [class*="span"]:first-child {
+      margin-left: 0;
+    }
+
+    // generate .spanX and .offsetX
+    $i: $gridColumns;
+    @while $i > 0 {
+      .span#{$i} {
+        @include fluid-span($i, $columnWidth, $gutterWidth);
+        @include fluid-offset($i, $columnWidth, $gutterWidth);
+      }
+      $i: $i - 1;
+    }
+  }
+}
