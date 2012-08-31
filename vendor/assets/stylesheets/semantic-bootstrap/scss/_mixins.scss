@@ -28,3 +28,20 @@
     }
   }
 }
+
+@mixin btsRow-fluid-column($pos: 'default') {
+  @if $pos == 'first' {
+    margin-left: 0;
+  }
+  @else {
+    @include input-block-level();
+    float: left;
+    margin-left: $gutterWidth;
+    *margin-left: $gutterWidth - (.5 / $gridRowWidth * 100px * 1%);    
+  }
+}
+
+@mixin btsRow-fluid-columnSize($size: 1) {
+  @include fluid-span($size, $columnWidth, $gutterWidth);
+  @include fluid-offset($size, $columnWidth, $gutterWidth);
+}

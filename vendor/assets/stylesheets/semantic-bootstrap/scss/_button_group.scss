@@ -1,35 +1,35 @@
 // Make the div behave like a button
 @mixin btsBtn-group($nested: false) {
-  position: relative;
-  font-size: 0; // remove as part 1 of font-size inline-block hack
-  white-space: nowrap; // prevent buttons from wrapping when in tight spaces (e.g., the table on the tests page)
-  @include ie7-restore-left-whitespace();
-}
-
-@mixin btsBtn-group-nested() {
-  // Space out series of button groups
-  margin-left: 5px;
+  @if $nested {
+    // Space out series of button groups
+    margin-left: 5px;
+  } @else {
+    position: relative;
+    font-size: 0; // remove as part 1 of font-size inline-block hack
+    white-space: nowrap; // prevent buttons from wrapping when in tight spaces (e.g., the table on the tests page)
+    @include ie7-restore-left-whitespace();
+  }
 }
 
 // Optional: Group multiple button groups together for a toolbar
-@mixin btsBtn-toolbar() {
-  font-size: 0; // Hack to remove whitespace that results from using inline-block
-  margin-top: $baseLineHeight / 2;
-  margin-bottom: $baseLineHeight / 2;
+@mixin btsBtn-toolbar($nested: false) {
+  @if $nested {
+    @include btsBtn-group('nested');
+  @else {
+    font-size: 0; // Hack to remove whitespace that results from using inline-block
+    margin-top: $baseLineHeight / 2;
+    margin-bottom: $baseLineHeight / 2;
 
-  .btn-group {
-    display: inline-block;
-    @include ie7-inline-block();
+    .btn-group {
+      display: inline-block;
+      @include ie7-inline-block();
+    }
+    .btn + .btn,
+    .btn-group + .btn,
+    .btn + .btn-group {
+      margin-left: 5px;
+    }
   }
-  .btn + .btn,
-  .btn-group + .btn,
-  .btn + .btn-group {
-    margin-left: 5px;
-  }
-}
-
-@mixin btsBtn-toolbar-nested() {
-  @include btsBtn-group-nested();
 }
 
 @mixin btsBtn-toolbar-group() {
@@ -38,28 +38,30 @@
 }
 
 // Float them, remove border radius, then re-add to first and last elements
-@mixin btsBtn-groupBtn() {
-  position: relative;
-  @include border-radius(0);
-}
-@mixin btsBtn-groupBtn-nested() {
-  margin-left: -1px;
-}
-
-@mixin btsBtn-groupBtn-basic() {
-  font-size: $baseFontSize; // redeclare as part 2 of font-size inline-block hack
+@mixin btsBtn-groupBtn($nested: false) {
+  @if $nested {
+    margin-left: -1px;
+  @else {  
+    position: relative;
+    @include border-radius(0);
+  }
 }
 
-// Reset fonts for other sizes
-@mixin btsBtn-group-mini() {
-  font-size: 11px;
+@mixin btsBtn-groupBtn-size($size: 'default') {
+  // Reset fonts for other sizes
+  @if $size == 'mini' {
+    font-size: 11px;  
+  } @else if $size == 'small' {
+    font-size: 12px;
+  }
+  } @else if $size == 'large' {
+    font-size: 16px;
+  }
+  @else {
+    font-size: $baseFontSize; // redeclare as part 2 of font-size inline-block hack
+  }
 }
-@mixin btsBtn-group-small() {
-  font-size: 12px;
-}
-@mixin btsBtn-group-large() {
-  font-size: 16px;
-}
+
 
 // Set corners individual because sometimes a single button can be in a .btn-group and we need :first-child and :last-child to both match
 @mixin btsBtn-group-first($size: 'default') {
@@ -117,7 +119,7 @@
 }
 
 // On active and open, don't show outline
-@mixin btsBtn-group-toggleActive($size) {
+@mixin btsBtn-group-toggleActive($size: 'default') {
   @if $size == 'mini' {
     padding-left: 5px;
     padding-right: 5px;
@@ -134,19 +136,19 @@
 
  
 // Give the line between buttons some depth
-@mixin btsBtn-group-toggle() {
-  padding-left: 8px;
-  padding-right: 8px;
-  @include box-shadow(#{inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)});
-  *padding-top: 5px;
-  *padding-bottom: 5px;
-}
-
-@mixin btsBtn-group-toggleOpen() {
-  // The clickable button for toggling the menu
-  // Remove the gradient and set the same inset shadow as the :active state
-  background-image: none;
-  @include box-shadow(#{inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)});  
+@mixin btsBtn-group-toggle($open: false) {
+  @if $open {
+    // The clickable button for toggling the menu
+    // Remove the gradient and set the same inset shadow as the :active state
+    background-image: none;
+    @include box-shadow(#{inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)});      
+  } @else {
+    padding-left: 8px;
+    padding-right: 8px;
+    @include box-shadow(#{inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)});
+    *padding-top: 5px;
+    *padding-bottom: 5px;
+  }
 }
 
 // Note: Use only for open Group
@@ -199,7 +201,7 @@
 // Vertical button groups
 // ----------------------
 
-@mixin btsBtn-group-vertical {
+@mixin btsBtn-group-vertical() {
   display: inline-block; // makes buttons only take up the width they need
   @include ie7-inline-block();
 }

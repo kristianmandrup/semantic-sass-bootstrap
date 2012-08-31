@@ -7,19 +7,20 @@ This semantic approach lets the resulting HTML be more content oriented, with th
 ## HAML Example
 
 ```haml
-#topbar
-#main_wrapper
-  #menubar.span3
-    hello
-  #content.span6
-    hi
-    .actions
-      #search
-        input{type: 'search'}
-        button
-          Search
-  #sidebar.span3.last
-    bye
+#content.container
+  #topbar
+  #main_wrapper
+    #menubar.span3
+      hello
+    #content.span6
+      hi
+      .actions
+        #search
+          input{type: 'search'}
+          button
+            Search
+    #sidebar.span3.last
+      bye
 ```
 
 This project will initially be focused on providing SCSS support, but possibly SASS (and perhaps even LESS) in the future. I welcome other developers to assist in this effort or branch off and create LESS or SASS variants, discuss approaches, naming conventions etc.
@@ -37,6 +38,7 @@ Here are some usage examples that I imagine could be possible with this solution
     .btsBtn('small');
   }
 }
+#content { .btsContainer() }
 #topbar { .btsRow(); }
 #main_wrapper { 
   .btsRow();
@@ -56,6 +58,7 @@ Here are some usage examples that I imagine could be possible with this solution
   }
 }
 
+#content { @include btsContainer(); }
 #topbar { @include makeRow(); }
 #main_wrapper { 
   @include makeRow();
@@ -72,7 +75,9 @@ Here are some usage examples that I imagine could be possible with this solution
 #search
   button
     +btsBtn('small')
-  
+
+#content
+  +btsContainer
 #topbar 
   +btsRow
 
@@ -96,12 +101,16 @@ Mixins have been defined for the following Bootstrap modules:
 * Buttons
 * Button group
 * Dropdowns
-* Grid (_partly_)
-* Navbar (_partly_)
+* Grid (*)
+* Layouts (*)
+* Mixins (*)
+* Modal
+* Nav
+* Navbar
 
 _Please help out by adding mixins for other Bootstrap modules that you would like to use in a more semantic fashion ;)_
 
-*Accordion*
+### Accordion
 
 * `btsAccordion()`
 * `btsAccordion-group()`
@@ -109,20 +118,41 @@ _Please help out by adding mixins for other Bootstrap modules that you would lik
 * `btsAccordion-toggle()`
 * `btsAccordion-inner()`
 
-*Buttons*
+### Buttons
 
 * `btsBtn($type: 'default', $size: 'default', $icon: false, $state: 'default', $hover: false)`
 
-*Button group*
+### Button group
 
 * `btsBtn-group($nested: false)`
-* `btsBtn-toolbar()`
 * `btsBtn-groupBtn($pos: 'default')`
-* `btsBtn-groupToggle($size: 'default', $active: false, $open: false)`
-* `btsBtn-groupToggleBtn($type: 'default')
-* `btsBtn-caret($size: 'default', $hover: false)
+* `btsBtn-groupBtn-size($size: 'default')`
+* `btsBtn-group-first($size: 'default')
+* `btsBtn-group-toggle()`
+* `btsBtn-group-last($size : 'default')
+* `btsBtn-group-btnActive()`
+* `btsBtn-group-toggleActive($size: 'default')
+* `btsBtn-group-toggle($open: false)`
+* `btsBtn-group-toggleBtn($type: 'default')
 
-*Dropdowns*
+*Toolbar*
+
+* `btsBtn-toolbar($nested: false)`
+* `btsBtn-toolbar-group()
+
+*Caret*
+
+* `btsBtn-caret($size: 'default', $dropup: false)`
+* `btsBtn-caretActive()`
+
+*Vertical*
+
+* `btsBtn-group-vertical()`
+* `btsBtn-group-verticalBtn($nested: false)`
+* `btsBtn-group-verticalBtn-pos($pos: 'first')`
+* `btsBtn-group-verticalBtn-large($pos: 'first')`
+
+### Dropdowns
 
 * btsDropup()
 * btsDropdown()
@@ -137,12 +167,27 @@ _Please help out by adding mixins for other Bootstrap modules that you would lik
 * btsDropup-menuCaret()
 * btsTypeahead()
 
-*Grid*
+### Grid
 
 * `btsColumn($columns: 1, $offset: 0)`
 * `btsRow()`
+* `btsColumn-fluid($number)`
+* `btsRow-fluid-hide()`
+* `btsRow-fluid-right()`
 
-*Navbar*
+### Layouts
+
+* `btsContainer()`
+* `btsContainer-fluid()`
+
+### Mixins
+
+* `btsRow-core()`
+* `btsRow-fluid()`
+* `btsRow-fluid-column($pos: 'default')`
+* `btsRow-fluid-columnSize($size: 1)`
+
+### Navbar
 
 See code
 
