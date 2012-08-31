@@ -133,12 +133,12 @@ _Please help out by adding mixins for other Bootstrap modules that you would lik
 * `btsBtn-group-btnActive()`
 * `btsBtn-group-toggleActive($size: 'default')
 * `btsBtn-group-toggle($open: false)`
-* `btsBtn-group-toggleBtn($type: 'default')
+* `btsBtn-group-toggleBtn($type: 'default')`
 
 *Toolbar*
 
 * `btsBtn-toolbar($nested: false)`
-* `btsBtn-toolbar-group()
+* `btsBtn-toolbar-group()`
 
 *Caret*
 
@@ -187,9 +187,30 @@ _Please help out by adding mixins for other Bootstrap modules that you would lik
 * `btsRow-fluid-column($pos: 'default')`
 * `btsRow-fluid-columnSize($size: 1)`
 
+### Nav
+
+* btsNav()
+* btsNav-link($hover : false)
+* btsNav-pull-right()
+* btsNav-header()
+* btsNav-item-header()
+* btsNav-list()
+* btsNav-list-item($header : false)
+* btsNav-list-itemActive()
+* btsNav-list-icon()
+* btsNav-list-divider()
+
 ### Navbar
 
-See code
+* btsNavbar()
+* btsNavbar-container()
+* btsNavbar-collapse()
+* btsNavbar-brand($active: false)
+* btsNavbar-link()
+* btsNavbar-text()
+* btsNavbar-btn()
+* btsNavbar-groupBtn()
+
 
 _More to follow... Please help out!_
 

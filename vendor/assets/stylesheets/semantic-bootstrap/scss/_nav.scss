@@ -44,8 +44,7 @@
   margin-bottom: 0;
 }
 
-@mixin btsNav-list-item($header : false)
-.nav-list .nav-header {
+@mixin btsNav-list-item($header : false) {
   margin-left:  -15px;
   margin-right: -15px;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
@@ -55,7 +54,7 @@
   } 
 }
 
-@mixin btsNav-list-item-active() {
+@mixin btsNav-list-itemActive() {
   color: $white;
   text-shadow: 0 -1px 0 rgba(0,0,0,.2);
   background-color: $linkColor;  
