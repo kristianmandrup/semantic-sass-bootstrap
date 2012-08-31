@@ -10,7 +10,7 @@
   @include fluid-span($number)
 }
 
-@mixin btsRow-fluid-hide {
+@mixin btsRow-fluid-hide() {
   display: none;
 }
 

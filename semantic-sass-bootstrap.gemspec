@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "semantic-sass-bootstrap"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = "2012-08-25"
+  s.date = "2012-08-31"
   s.description = "Use Twitter Bootstrap with semantic elements by leveraging mixins and minimize bootstrap layout classes in your html"
   s.email = "kmandrup@gmail.com"
   s.extra_rdoc_files = [
@@ -26,11 +26,15 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/semantic-sass-bootstrap.rb",
+    "semantic-sass-bootstrap.gemspec",
     "spec/spec_helper.rb",
     "vendor/assets/stylesheets/semantic-bootstrap/_bootstrap.scss",
+    "vendor/assets/stylesheets/semantic-bootstrap/scss/_accordion.scss",
     "vendor/assets/stylesheets/semantic-bootstrap/scss/_button_group.scss",
     "vendor/assets/stylesheets/semantic-bootstrap/scss/_buttons.scss",
+    "vendor/assets/stylesheets/semantic-bootstrap/scss/_dropdowns.scss",
     "vendor/assets/stylesheets/semantic-bootstrap/scss/_grid.scss",
+    "vendor/assets/stylesheets/semantic-bootstrap/scss/_navbar.scss",
     "vendor/assets/stylesheets/semantic_bootstrap.less",
     "vendor/assets/stylesheets/semantic_bootstrap.sass",
     "vendor/assets/stylesheets/semantic_bootstrap.scss"
