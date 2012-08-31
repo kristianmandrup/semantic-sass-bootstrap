@@ -42,7 +42,7 @@
 
 // The dropdown menu (ul)
 // ----------------------
-@mixin btsDropdown-menu($pull-right: false, $divider: false) {
+@mixin btsDropdown-menu($pull-right: false) {
   position: absolute;
   top: 100%;
   z-index: $zindexDropdown;
@@ -79,19 +79,19 @@
 
 // Links within the dropdown menu
 @mixin btsDropdown-menuItem($active: false) {
-  display: block;
-  padding: 3px 15px;
-  clear: both;
-  font-weight: normal;
-  line-height: $baseLineHeight;
-  color: $dropdownLinkColor;
-  white-space: nowrap;
-
   // Hover state or active
   @if $active {
     color: $dropdownLinkColorHover;
     text-decoration: none;
     background-color: $dropdownLinkBackgroundHover;
+  } @else {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: $baseLineHeight;
+    color: $dropdownLinkColor;
+    white-space: nowrap;
   }
 }
 

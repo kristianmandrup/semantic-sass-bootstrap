@@ -1,35 +1,78 @@
 // Make the div behave like a button
 @mixin btsBtn-group($nested: false) {
   position: relative;
-  @include clearfix(); // clears the floated buttons
+  font-size: 0; // remove as part 1 of font-size inline-block hack
+  white-space: nowrap; // prevent buttons from wrapping when in tight spaces (e.g., the table on the tests page)
   @include ie7-restore-left-whitespace();
-
-  @if $nested {
-    // Space out series of button groups
-    margin-left: 5px;
-  }
 }
 
+@mixin btsBtn-group-nested() {
+  // Space out series of button groups
+  margin-left: 5px;
+}
 
 // Optional: Group multiple button groups together for a toolbar
 @mixin btsBtn-toolbar() {
+  font-size: 0; // Hack to remove whitespace that results from using inline-block
   margin-top: $baseLineHeight / 2;
   margin-bottom: $baseLineHeight / 2;
+
   .btn-group {
     display: inline-block;
     @include ie7-inline-block();
   }
+  .btn + .btn,
+  .btn-group + .btn,
+  .btn + .btn-group {
+    margin-left: 5px;
+  }
+}
+
+@mixin btsBtn-toolbar-nested() {
+  @include btsBtn-group-nested();
+}
+
+@mixin btsBtn-toolbar-group() {
+  display: inline-block;
+  @include ie7-inline-block();
 }
 
 // Float them, remove border radius, then re-add to first and last elements
-@mixin btsBtn-groupBtn($pos: 'default') {
+@mixin btsBtn-groupBtn() {
   position: relative;
-  float: left;
-  margin-left: -1px;
   @include border-radius(0);
+}
+@mixin btsBtn-groupBtn-nested() {
+  margin-left: -1px;
+}
 
-  // Set corners individual because sometimes a single button can be in a .btn-group and we need :first-child and :last-child to both match
-  @if $pos == 'first' {
+@mixin btsBtn-groupBtn-basic() {
+  font-size: $baseFontSize; // redeclare as part 2 of font-size inline-block hack
+}
+
+// Reset fonts for other sizes
+@mixin btsBtn-group-mini() {
+  font-size: 11px;
+}
+@mixin btsBtn-group-small() {
+  font-size: 12px;
+}
+@mixin btsBtn-group-large() {
+  font-size: 16px;
+}
+
+// Set corners individual because sometimes a single button can be in a .btn-group and we need :first-child and :last-child to both match
+@mixin btsBtn-group-first($size: 'default') {
+  @if $size == 'large' {
+  margin-left: 0;
+     -webkit-border-top-left-radius: 6px;
+         -moz-border-radius-topleft: 6px;
+             border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+      -moz-border-radius-bottomleft: 6px;
+          border-bottom-left-radius: 6px;    
+  } @else {
+    // Reset corners for large buttons
     margin-left: 0;
        -webkit-border-top-left-radius: 4px;
            -moz-border-radius-topleft: 4px;
@@ -37,56 +80,45 @@
     -webkit-border-bottom-left-radius: 4px;
         -moz-border-radius-bottomleft: 4px;
             border-bottom-left-radius: 4px;    
-
-    // Reset corners for large buttons
-    @if $size == 'large' {
-      margin-left: 0;
-         -webkit-border-top-left-radius: 6px;
-             -moz-border-radius-topleft: 6px;
-                 border-top-left-radius: 6px;
-      -webkit-border-bottom-left-radius: 6px;
-          -moz-border-radius-bottomleft: 6px;
-              border-bottom-left-radius: 6px;
-      
-    }
   }
+}
+// Need .dropdown-toggle since :last-child doesn't apply given a .dropdown-menu immediately after it
+@mixin btsBtn-group-toggle() {
+  @if $size == 'large' {
+         -webkit-border-top-right-radius: 6px;
+         -moz-border-radius-topright: 6px;
+             border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+      -moz-border-radius-bottomright: 6px;
+          border-bottom-right-radius: 6px;
 
-  @if $pos == 'last' {
-       -webkit-border-top-right-radius: 4px;
-           -moz-border-radius-topright: 4px;
-               border-top-right-radius: 4px;
-    -webkit-border-bottom-right-radius: 4px;
-        -moz-border-radius-bottomright: 4px;
-            border-bottom-right-radius: 4px;    
-
-    // Reset corners for large buttons
-    @if $size == 'large' {
-             -webkit-border-top-right-radius: 6px;
-             -moz-border-radius-topright: 6px;
-                 border-top-right-radius: 6px;
-      -webkit-border-bottom-right-radius: 6px;
-          -moz-border-radius-bottomright: 6px;
-              border-bottom-right-radius: 6px;
-    }
+  } @else {
+    @include btsBtn-group-last;        
   }
-
-  // Wish there was an 'in' function for list to check if list contains specific element
-  @if $state == 'hover' or $state == 'focus' or $state == 'active' {
-    z-index: 2;    
-  } 
 }
 
-@mixin btsBtn-groupToggle($size: 'default', $active: false, $open: false) {
-  // Give the line between buttons some depth
-  padding-left: 8px;
-  padding-right: 8px;
-  @include box-shadow(#{inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)});
-  *padding-top: 4px;
-  *padding-bottom: 4px;
+@mixin btsBtn-group-last($size : 'default') {
+  @if $size == 'large' {
+    @include btsBtn-group-toggle('large');
+  } @else {
+     -webkit-border-top-right-radius: 4px;
+         -moz-border-radius-topright: 4px;
+             border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+      -moz-border-radius-bottomright: 4px;
+          border-bottom-right-radius: 4px;
+  }    
+}
 
-  @if $active or $open {
-    outline: 0;
-  } @else if $size == 'mini' {
+
+// On hover/focus/active, bring the proper btn to front
+@mixin btsBtn-group-btnActive() {
+  z-index: 2;
+}
+
+// On active and open, don't show outline
+@mixin btsBtn-group-toggleActive($size) {
+  @if $size == 'mini' {
     padding-left: 5px;
     padding-right: 5px;
   } @else if $size == 'small' {
@@ -95,20 +127,30 @@
   } @else if $size == 'large' {
     padding-left: 12px;
     padding-right: 12px;
-  }
-
-  // The clickable button for toggling the menu
-  // Remove the gradient and set the same inset shadow as the :active state
-  @if $state == 'open' {
-    background-image: none;
-    @include box-shadow(#{inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)});  
+  } @else {
+    outline: 0;
   }
 }
 
-// Note: Use only for open Group
-@mixin btsBtn-groupToggleBtn($type: 'default') {
-  background-color: $btnBackgroundHighlight;
+ 
+// Give the line between buttons some depth
+@mixin btsBtn-group-toggle() {
+  padding-left: 8px;
+  padding-right: 8px;
+  @include box-shadow(#{inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)});
+  *padding-top: 5px;
+  *padding-bottom: 5px;
+}
 
+@mixin btsBtn-group-toggleOpen() {
+  // The clickable button for toggling the menu
+  // Remove the gradient and set the same inset shadow as the :active state
+  background-image: none;
+  @include box-shadow(#{inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)});  
+}
+
+// Note: Use only for open Group
+@mixin btsBtn-group-toggleBtn($type: 'default') { 
   @if $type == 'primary' {
     background-color: $btnPrimaryBackgroundHighlight;
   } @else if $type == 'warning' {
@@ -121,18 +163,12 @@
     background-color: $btnInfoBackgroundHighlight;
   } @else if $type == 'inverse' {
     background-color: $btnInverseBackgroundHighlight;
+  } @else {
+    background-color: $btnBackgroundHighlight;    
   }
 }
 
-@mixin btsBtn-caret($size: 'default', $hover: false) {
-  // Reposition the caret
-  margin-top: 7px;
-  margin-left: 0;
-
-  @if $active {
-    @include opacity(1);    
-  } 
-
+@mixin btsBtn-caret($size: 'default', $dropup: false) {
   // Carets in other button sizes
   @if $size == 'mini' {
     margin-top: 5px;    
@@ -149,5 +185,50 @@
       border-bottom: 5px solid $black;
       border-top: 0;      
     }
+  } @else {
+    // Reposition the caret
+    margin-top: 7px;
+    margin-left: 0;    
+  }
+}
+
+@mixin btsBtn-caretActive() {
+  @include opacity(1);
+}
+
+// Vertical button groups
+// ----------------------
+
+@mixin btsBtn-group-vertical {
+  display: inline-block; // makes buttons only take up the width they need
+  @include ie7-inline-block();
+}
+
+@mixin btsBtn-group-verticalBtn($nested: false) {
+  @if $nested {
+    margin-left: 0;
+    margin-top: -1px;    
+  } @else {
+    display: block;
+    float: none;
+    width: 100%;
+    @include border-radius(0);
+  }
+}
+
+@mixin btsBtn-group-verticalBtn-pos($pos: 'first') {
+  @if $pos == 'first' {
+    @include border-radius(4px 4px 0 0);      
+  } @else {
+    @include border-radius(0 0 4px 4px);
+  }
+  @include btsBtn-group-verticalBtn-large($pos);
+}
+
+@mixin btsBtn-group-verticalBtn-large($pos: 'first') {
+  @if $pos == 'first' {
+    @include border-radius(6px 6px 0 0);
+  } @else {
+    @include border-radius(0 0 6px 6px);  
   }
 }

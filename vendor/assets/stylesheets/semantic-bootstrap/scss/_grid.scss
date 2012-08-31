@@ -5,3 +5,16 @@
 @mixin btsRow() {
   @include makeRow();
 }
+
+@mixin btsColumn-fluid($number) {
+  @include fluid-span($number)
+}
+
+@mixin btsRow-fluid-hide {
+  display: none;
+}
+
+@mixin btsRow-fluid-right() {
+  float: right;
+}
+
