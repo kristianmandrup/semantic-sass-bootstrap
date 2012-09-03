@@ -28,6 +28,7 @@ This project will initially target use in Rails, but the assets in `vendor/asset
 
 Here are some usage examples that I imagine could be possible with this solution... 
 
+Currently this project is targeting Twitter Bootstrap 2.1
 
 ## With LESS
 
