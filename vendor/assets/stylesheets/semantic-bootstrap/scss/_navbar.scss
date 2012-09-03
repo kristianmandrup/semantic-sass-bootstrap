@@ -1,21 +1,24 @@
-@mixin btsNavbar() {
-  // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
-  *position: relative;
-  *z-index: 2;
+@mixin btsNavbar($inner: false) {
+  @if $inner {
+    // Gradient is applied to it's own element because overflow visible is not honored by IE when filter is present
+    min-height: $navbarHeight;
+    padding-left: 20px;
+    padding-right: 20px;
+    @include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
+    @include border-radius(4px);
+    @include box-shadow(#{0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1)});    
+  } @else {
 
-  overflow: visible;
-  margin-bottom: $baseLineHeight;
+    // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
+    *position: relative;
+    *z-index: 2;
+
+    overflow: visible;
+    margin-bottom: $baseLineHeight;
+
+  }
 }
 
-// Gradient is applied to it's own element because overflow visible is not honored by IE when filter is present
-@mixin btsNavbar-inner() {
-  min-height: $navbarHeight;
-  padding-left: 20px;
-  padding-right: 20px;
-  @include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
-  @include border-radius(4px);
-  @include box-shadow(#{0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1)});
-}
 
 // Set width to auto for default container
 // We then reset it for fixed navbars in the #gridSystem mixin
@@ -71,7 +74,7 @@
 }
 
   // Buttons in navbar
-@mixin btsNavbar.btn() {
+@mixin btsNavbar-btn() {
   @include navbarVerticalAlign(30px); // Vertically center in navbar
 }
 
